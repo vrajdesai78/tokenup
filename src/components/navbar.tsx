@@ -1,4 +1,4 @@
-import { BiSun, BiMoon, BiWalletAlt } from "react-icons/bi";
+import { BiSun, BiMoon } from "react-icons/bi";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 

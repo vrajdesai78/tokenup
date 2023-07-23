@@ -4,7 +4,6 @@ import Layout from "@/components/layout";
 import Image from "next/image";
 import Link from "next/link";
 import { MdSpaceDashboard } from "react-icons/md"
-import { useState} from "react";
 
 type CardProps = {
     heading: string;
@@ -44,17 +43,7 @@ const Card = ({ heading, title, img, link, color, style }: CardProps) => {
   );
 };
 
-const headers = [
-  "Name",
-  "Symbol",
-  "Total Supply (in ETH)",
-  "Total Cap (in ETH)",
-  "",
-];
-
 const Dashboard = () => {
-  const [productData, setProductData] = useState([{}]);
-
   return (
     <Layout>
       <Head>

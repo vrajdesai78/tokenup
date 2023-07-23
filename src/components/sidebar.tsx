@@ -64,7 +64,6 @@ const navSec3 = [
     },
 ];
   
-  
 const Sidebar = () => {  
     return (
       <aside className="fixed min-h-[100vh] w-[45] md:w-[180px] border-r border-gray-400 py-5">
