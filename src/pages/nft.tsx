@@ -39,7 +39,7 @@ const NFTMembership = () => {
       .createNFT(metaDataUrl, supply, isSupply, price, address)
       .then(async (tx: string) => {
         {
-          if(tx) {
+          if (tx) {
             console.log("Completed");
           }
         }
@@ -114,7 +114,6 @@ const NFTMembership = () => {
               }}
             />
           </div>
-
           <Input
             id="name"
             name="name"

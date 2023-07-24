@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import Sidebar from "@/components/sidebar";
 import Navbar from "./navbar";
-import Footer from "./footer";
 import PropTypes from "prop-types";
 
 interface ILayout {
@@ -20,7 +19,6 @@ const Layout = ({ children }: ILayout) => {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 };
