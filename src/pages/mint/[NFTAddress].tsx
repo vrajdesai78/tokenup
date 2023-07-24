@@ -2,9 +2,21 @@ import Layout from "@/components/layout";
 import Image from "next/image";
 import { Box, Typography, Stack, Button } from "@mui/material";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useContractRead } from "wagmi";
+import { NFTContractFactoryAddress } from "@/utils/constants";
+import NFTContract from "@/utils/ABI/NFTContract.json"
 
 const MintNFT = () => {
   const { theme, setTheme } = useTheme();
+
+  const { query } = useRouter();
+
+  useEffect(() => {
+    console.log(query.NFTAddress);
+  }, [query]);
+
   return (
     <Layout>
       <div className="flex mx-auto mt-14 ml-10 justify-center items-center z-0">
