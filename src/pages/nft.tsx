@@ -1,4 +1,4 @@
-import React from "react";
+import React, { HtmlHTMLAttributes } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import { useState } from "react";
@@ -6,12 +6,59 @@ import Layout from "@/components/layout";
 import Input from "@/components/form-elements/input";
 import Upload from "@/components/form-elements/upload";
 import MCheckbox from "@/components/form-elements/checkbox";
+import { NFTContractFactoryAddress } from "@/utils/constants";
+import NFTContractFactory from "@/utils/ABI/NFTContractFactory.json";
+import { publicClient } from "@/utils/viemClient";
+import { useAccount } from "wagmi";
 // @ts-ignore
-import { Web3Storage } from 'web3.storage';
+import { Web3Storage } from "web3.storage";
+import { createWalletClient, http } from "viem";
+import { polygonMumbai } from "viem/chains";
 
 const NFTMembership = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [isSupply, setIsSupply] = useState(false);
+  const [supply, setSupply] = useState("");
+  const [price, setPrice] = useState("");
+
+  const { address } = useAccount();
+
+  const walletClient = createWalletClient({
+    account: address,
+    chain: polygonMumbai,
+    transport: http(),
+  });
+
+  const uploadMetadata = async () => {
+    var metadata = {
+      name: name,
+      description: description,
+      image: imageUrl,
+    };
+    console.log(metadata);
+    const client = new Web3Storage({
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDkxZTRjOEMwNTJiMzkzNEQ3Nzc5NWM3QWQ3MkQ0MTFhMGQyMWUxODIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzE2ODYwNTU1NjIsIm5hbWUiOiJNYXRpYy1Qcm9maWxlIn0.zDWjIoqZUCnPXtvWXjm_ZbvPN2ZZHTfcK7JHdM2S7hk",
+    });
+    client
+      .put([new File([JSON.stringify(metadata)], "metadata.json")])
+      .then(async (cid: string) => {
+        console.log(cid);
+        const uri = `https://${cid}.ipfs.w3s.link/metadata.json`;
+        const { request } = await publicClient.simulateContract({
+          account: address,
+          address: NFTContractFactoryAddress,
+          abi: NFTContractFactory,
+          functionName: "createNFT",
+          args: [uri, supply ?? 0, isSupply, price, address]
+        })
+        console.log("request", request);
+        await walletClient.writeContract(request)
+      });
+  };
 
   return (
     <Layout>
@@ -35,7 +82,7 @@ const NFTMembership = () => {
           </div>
         </div>
         <form className="flex flex-col space-y-3 w-[90%] md:max-w-[600px] mx-auto">
-        <Image
+          <Image
             className="mx-auto rounded-xl"
             src={image !== "" ? image : "/preview.png"}
             alt="preview"
@@ -43,32 +90,35 @@ const NFTMembership = () => {
             height={200}
           />
           <div className="mx-auto w-[40%]">
-          <Upload
-            id="image"
-            name="image"
-            type="file"
-            onChange={(e: any) => {
-              const image = URL.createObjectURL(e.target.files[0]);
-              setImage(image);
-              const files = e.target.files;
-              const client = new Web3Storage({
-                token:
-                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDkxZTRjOEMwNTJiMzkzNEQ3Nzc5NWM3QWQ3MkQ0MTFhMGQyMWUxODIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzE2ODYwNTU1NjIsIm5hbWUiOiJNYXRpYy1Qcm9maWxlIn0.zDWjIoqZUCnPXtvWXjm_ZbvPN2ZZHTfcK7JHdM2S7hk",
-              });
-              client.put(files).then((cid: any) => {
-                console.log(cid);
-                setImageUrl(`https://${cid}.ipfs.w3s.link/${files[0].name}`);
-              });
-            }}
-          />
+            <Upload
+              id="image"
+              name="image"
+              type="file"
+              onChange={(e: any) => {
+                const image = URL.createObjectURL(e.target.files[0]);
+                setImage(image);
+                const files = e.target.files;
+                const client = new Web3Storage({
+                  token:
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDkxZTRjOEMwNTJiMzkzNEQ3Nzc5NWM3QWQ3MkQ0MTFhMGQyMWUxODIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzE2ODYwNTU1NjIsIm5hbWUiOiJNYXRpYy1Qcm9maWxlIn0.zDWjIoqZUCnPXtvWXjm_ZbvPN2ZZHTfcK7JHdM2S7hk",
+                });
+                client.put(files).then((cid: any) => {
+                  console.log(cid);
+                  setImageUrl(`https://${cid}.ipfs.w3s.link/${files[0].name}`);
+                });
+              }}
+            />
           </div>
-          
+
           <Input
             id="name"
             name="name"
             label="Name"
             type="text"
-            onChange={() => {}}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
+            value={name}
             helper="This Can Be Your DAO Name or Special Access Collection"
           />
           <Input
@@ -76,33 +126,48 @@ const NFTMembership = () => {
             name="description"
             label="Description"
             type="text"
-            onChange={() => {}}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setDescription(e.target.value)
+            }
+            value={description}
             helper="Write Something About This NFT or Features"
           />
           <MCheckbox
             name="supply"
-            label="Set Max Supply" 
-            onChange={() => {}}
+            label="Set Max Supply"
+            checked={isSupply}
+            onChange={() => {
+              setIsSupply(!isSupply);
+            }}
           />
-          <Input
-            id="supply"
-            name="supply"
-            label="Max Supply"
-            type="number"
-            onChange={() => {}}
-            helper="Recommended Max Supply - 10 Million Tokens."
-          />
+          {isSupply && (
+            <Input
+              id="supply"
+              name="supply"
+              label="Max Supply"
+              type="number"
+              value={supply}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSupply(e.target.value)
+              }
+              helper="Recommended Max Supply - 10 Million Tokens."
+            />
+          )}
           <Input
             id="price"
             name="price"
             label="Price"
             type="number"
-            onChange={() => {}}
+            value={price}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPrice(e.target.value)
+            }
             helper="Recommend initial NFT Price - 2 BIT, No 'ETH' Symbol Required."
           />
           <button
             onClick={async (e) => {
               e.preventDefault();
+              uploadMetadata();
             }}
             className="w-[100px] mx-auto text-[#ffffff] items-center justify-center bg-violet-500 hover:bg-violet-600 focus:ring-1 focus:outline-none focus:ring-[#cfcfcf] font-medium rounded-xl text-sm px-5 py-2.5 text-center shadow-none dark:bg-violet-500 dark:hover:bg-violet-600 dark:text-gray-100"
           >

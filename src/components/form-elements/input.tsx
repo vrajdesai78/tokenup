@@ -10,6 +10,7 @@ type InputProps = {
     type: string;
     onChange: any;
     helper: string;
+    value?: string;
 }
 
 type CssTextFieldProps = {
@@ -44,12 +45,13 @@ const Input = ({
   label,
   type,
   onChange,
+  value,
   helper,
 }: InputProps) => {
   const { theme, setTheme } = useTheme();
   return (
     <div>
-      <CssTextField theme={theme as any} id={id} name={name} label={label} variant="outlined" onChange={onChange} className="w-full mt-1 text-gray-700" type={type} required />
+      <CssTextField theme={theme as any} id={id} name={name} label={label} variant="outlined" onChange={onChange} value={value} className="w-full mt-1 text-gray-700" type={type} required />
       <div className="text-sm text-[#858585] mt-[4px]">{helper}</div>
     </div>
     

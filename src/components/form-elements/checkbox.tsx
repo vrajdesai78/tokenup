@@ -9,6 +9,7 @@ type CheckboxProps = {
     label: string;
     onChange: any;
     helper: string;
+    checked: boolean;
 }
 
 type ThemeProps = {
@@ -22,11 +23,11 @@ const CheckIcon = styled(Checkbox)<ThemeProps>(({ theme }) => ({
     },
   }));
 
-const MCheckbox = ({ name, label, onChange }: CheckboxProps) => {
+const MCheckbox = ({ name, label, onChange, checked }: CheckboxProps) => {
   const { theme, setTheme } = useTheme();
   return (
     <div>
-      <FormControlLabel control={<CheckIcon defaultChecked theme={theme as any}/>} label={label} name={name} onClick={onChange} className="text-gray-600 dark:text-white/80" />
+      <FormControlLabel control={<CheckIcon checked={checked} theme={theme as any}/>} label={label} name={name} onClick={onChange} className="text-gray-600 dark:text-white/80" />
     </div>
   );
 };
