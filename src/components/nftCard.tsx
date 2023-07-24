@@ -10,7 +10,7 @@ import {
   Modal,
   Link,
 } from "@mui/material";
-import { BsArrowUpRight } from "react-icons/bs";
+import { IoMdSend } from "react-icons/io";
 import Upload from "./form-elements/upload";
 import { useTheme } from "next-themes";
 
@@ -27,6 +27,7 @@ export default function NFTDetails(nftData: nftDataProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   return (
     <Box>
       <Card
@@ -91,9 +92,9 @@ export default function NFTDetails(nftData: nftDataProps) {
         </CardContent>
         <CardActions className="border-t dark:border-[#937ade]">
           <Button
-            size="small"
+            size="medium"
             color="primary"
-            endIcon={<BsArrowUpRight />}
+            endIcon={<IoMdSend />}
             className="w-full text-gray-700 dark:text-[#bea8ff]"
             onClick={handleOpen}
           >
@@ -120,8 +121,8 @@ export default function NFTDetails(nftData: nftDataProps) {
                 p: 4,
               }}
             >
-              <Typography id="modal-modal-title" variant="h4" component="h2">
-                Airdrop 🚀
+              <Typography id="modal-modal-title" variant="h5" component="h2">
+                AIRDROP 🚀
               </Typography>
               <Typography
                 id="modal-modal-description"
