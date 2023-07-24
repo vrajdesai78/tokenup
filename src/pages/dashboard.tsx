@@ -3,15 +3,15 @@ import Head from "next/head";
 import Layout from "@/components/layout";
 import Image from "next/image";
 import Link from "next/link";
-import { MdSpaceDashboard } from "react-icons/md"
+import { MdSpaceDashboard } from "react-icons/md";
 
 type CardProps = {
-    heading: string;
-    title: string;
-    img: string;
-    link: string;
-    color: string;
-    style: string;
+  heading: string;
+  title: string;
+  img: string;
+  link: string;
+  color: string;
+  style: string;
 };
 
 const Card = ({ heading, title, img, link, color, style }: CardProps) => {
@@ -75,7 +75,7 @@ const Dashboard = () => {
             img="/airdrop.png"
             style="text-gray-700"
             color="bg-gradient-to-r from-[#ebcef2] to-[#f9b92a]"
-          />          
+          />
         </div>
       </div>
     </Layout>

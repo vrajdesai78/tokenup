@@ -29,12 +29,13 @@ export default function NFTDetails(nftData: nftDataProps) {
           my: 3,
           mx: [0, 2],
           overflow: "hidden",
-          bgcolor: theme === "light" ? "white": "#110a24",
+          bgcolor: theme === "light" ? "white" : "#110a24",
           borderRadius: "10px",
           border: "1px solid black",
-          boxShadow: theme === "light" ? "6px 6px 0 black" : "6px 6px 0 #69579e",
+          boxShadow:
+            theme === "light" ? "6px 6px 0 black" : "6px 6px 0 #69579e",
           width: "350px",
-          maxWidth: {sm: "300px", md: "300px", lg: "350px", xl: "400px"}
+          maxWidth: { sm: "300px", md: "300px", lg: "350px", xl: "400px" },
         }}
       >
         <CardMedia
@@ -44,7 +45,8 @@ export default function NFTDetails(nftData: nftDataProps) {
           image={image}
           title={name}
           sx={{
-            borderBottom: theme === "light" ? "1px solid black": "1px solid #937ade",
+            borderBottom:
+              theme === "light" ? "1px solid black" : "1px solid #937ade",
             maxHeight: "300px",
             objectFit: "fill",
           }}
@@ -52,7 +54,7 @@ export default function NFTDetails(nftData: nftDataProps) {
         <CardContent>
           <Box
             component="div"
-            bgcolor= { theme === "light" ? "#232324": "#937ade"}
+            bgcolor={theme === "light" ? "#232324" : "#937ade"}
             display="inline-block"
             px={2}
             py={1}
@@ -64,10 +66,20 @@ export default function NFTDetails(nftData: nftDataProps) {
               {price} MATIC
             </Typography>
           </Box>
-          <Typography variant="h5" component="h2" className="text-gray-800 dark:text-gray-100" noWrap>
+          <Typography
+            variant="h5"
+            component="h2"
+            className="text-gray-800 dark:text-gray-100"
+            noWrap
+          >
             {name}
           </Typography>
-          <Typography variant="body2" color="textSecondary" className="text-gray-600 dark:text-[#a78bfc]" noWrap>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            className="text-gray-600 dark:text-[#a78bfc]"
+            noWrap
+          >
             {description}
           </Typography>
         </CardContent>

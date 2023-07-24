@@ -1,13 +1,13 @@
 import React from "react";
-import Button from '@mui/material/Button';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import Button from "@mui/material/Button";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 
-type UploadProps = {    
-    id: string;
-    name: string;
-    type: string;           
-    accept: string;
-    onChange: any;
+type UploadProps = {
+  id: string;
+  name: string;
+  type: string;
+  accept: string;
+  onChange: any;
 };
 
 const Upload = ({ id, name, type, accept, onChange }: UploadProps) => {

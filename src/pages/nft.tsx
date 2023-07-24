@@ -53,10 +53,10 @@ const NFTMembership = () => {
           address: NFTContractFactoryAddress,
           abi: NFTContractFactory,
           functionName: "createNFT",
-          args: [uri, supply ?? 0, isSupply, price, address]
-        })
+          args: [uri, supply ?? 0, isSupply, price, address],
+        });
         console.log("request", request);
-        await walletClient.writeContract(request)
+        await walletClient.writeContract(request);
       });
   };
 
