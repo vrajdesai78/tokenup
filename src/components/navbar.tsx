@@ -1,7 +1,7 @@
 import { BiSun, BiMoon } from "react-icons/bi";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
-import { Web3Button } from '@web3modal/react'
+import { Web3Button } from "@web3modal/react";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();

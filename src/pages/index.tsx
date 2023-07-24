@@ -36,8 +36,8 @@ export default function Home() {
                     Community & Growth
                   </h2>
                   <h3 className="block text-[#AEACC9] font-medium text-2xl lg:px-32 animate__animated animate__slideInRight">
-                    Leading communities trust our no-code tools for POA and
-                    NFT memberships
+                    Leading communities trust our no-code tools for POA and NFT
+                    memberships
                   </h3>
                 </div>
                 <div className="animate__animated animate__pulse">
@@ -188,10 +188,10 @@ export default function Home() {
           <div className="px-4 lg:px-0 mx-auto max-w-[1080px] flex justify-center flex-col min-h-[70vh]">
             <div className="flex justify-center flex-row">
               <div className="flex flex-col justify-center text-center h-[70vh] py-32 lg:px-32 space-y-20">
-                  <h2 className="text-4xl font-medium text-[#E4E4ED] sm:text-5xl">
-                    Grow Your Community <br /> Today With Us
-                  </h2>
-                  <GradientButton link="/dashboard" title="Let's go 🚀" />
+                <h2 className="text-4xl font-medium text-[#E4E4ED] sm:text-5xl">
+                  Grow Your Community <br /> Today With Us
+                </h2>
+                <GradientButton link="/dashboard" title="Let's go 🚀" />
               </div>
             </div>
           </div>
