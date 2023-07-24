@@ -2,43 +2,54 @@ import Head from "next/head";
 import Grid from "@mui/material/Grid";
 import NFT from "@/components/nftCard";
 import Layout from "@/components/layout";
+import { useEffect, useState } from "react";
+import { NFTContractFactoryAddress } from "@/utils/constants";
+import NFTContractFactory from "@/utils/ABI/NFTContractFactory.json";
+import { useAccount, useContractRead } from "wagmi";
+import NFTDetails from "@/components/nftCard";
 
-const productData = [
-  {
-    index: 1,
-    name: "NFT Membership",
-    description:
-      "Monetize your community memberships to grant access and benefits. Specially designed for DAOs and guilds.",
-    image: "/tokenup.png",
-    price: "0.1",
-  },
-  {
-    index: 1,
-    name: "NFT Membership",
-    description:
-      "Monetize your community memberships to grant access and benefits. Specially designed for DAOs and guilds.",
-    image: "/nft.png",
-    price: "0.1",
-  },
-  {
-    index: 1,
-    name: "NFT Membership",
-    description:
-      "Monetize your community memberships to grant access and benefits. Specially designed for DAOs and guilds.",
-    image: "/tokenup.png",
-    price: "0.1",
-  },
-  {
-    index: 1,
-    name: "NFT Membership",
-    description:
-      "Monetize your community memberships to grant access and benefits. Specially designed for DAOs and guilds.",
-    image: "/nft.png",
-    price: "0.1",
-  },
-];
 
 export default function Products() {
+  const [parsedData, setParsedData] = useState([]);
+
+
+  const [productData, setProductData] = useState([{}]);
+  const { address } = useAccount();
+
+  const { data, isError, isLoading } = useContractRead({
+    address: NFTContractFactoryAddress,
+    abi: NFTContractFactory,
+    functionName: "getNFTsWithMetadataCreatedByCreator",
+    args: [address],
+    onSuccess: (data) => {
+      console.log("Succes");
+    },
+    onError: (error) => {
+      console.log("Error", error);
+    },
+  });
+
+  const fetchData = async () => {
+    let nfts = [];
+    for (let nft of data as any) {
+      const response = await fetch(nft.uri);
+      const pd = await response.json();
+      nfts.push({
+        name: pd.name,
+        description: pd.description,
+        image: pd.image,
+        price: parseFloat(nft.nftPrice)
+      });
+    }
+    setProductData(nfts);
+    console.log(nfts);
+  };
+
+  useEffect(() => {
+    if (data) {
+      fetchData()
+    }
+  }, [data]);
   return (
     <Layout>
       <Head>
@@ -53,8 +64,11 @@ export default function Products() {
         mx={"auto"}
         container
       >
-        {productData.map((products, index) => (
-          <NFT {...products} key={index} />
+        {/* {productData.map((products, index) => (
+          <NFTDetails {...products} key={index} />
+        ))} */}
+         {productData.map((products, index) => (
+          <NFTDetails name={""} description={""} image={""} price={""} {...products} key={index} />
         ))}
       </Grid>
     </Layout>
