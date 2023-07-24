@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Layout from "@/components/layout";
+import Table from "@/components/table";
 import Image from "next/image";
 import Link from "next/link";
 import { MdSpaceDashboard } from "react-icons/md";
@@ -43,6 +44,20 @@ const Card = ({ heading, title, img, link, color, style }: CardProps) => {
   );
 };
 
+const headers = ["Name", "Total Supply", "Total Minted", "Action"];
+const productData = [
+  {
+    name: "TokenUp",
+    totalSupply: "100",
+    totalMinted: "67",
+  },
+  {
+    name: "TokenUp",
+    totalSupply: "50",
+    totalMinted: "12",
+  }
+]
+
 const Dashboard = () => {
   return (
     <Layout>
@@ -77,6 +92,9 @@ const Dashboard = () => {
             color="bg-gradient-to-r from-[#ebcef2] to-[#f9b92a]"
           />
         </div>
+      </div>
+      <div>
+        <Table headers={headers} data={productData} />
       </div>
     </Layout>
   );
