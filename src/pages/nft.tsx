@@ -1,4 +1,4 @@
-import React, { HtmlHTMLAttributes } from "react";
+import React, { HtmlHTMLAttributes, useEffect } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import { useState } from "react";
@@ -8,12 +8,10 @@ import Upload from "@/components/form-elements/upload";
 import MCheckbox from "@/components/form-elements/checkbox";
 import { NFTContractFactoryAddress } from "@/utils/constants";
 import NFTContractFactory from "@/utils/ABI/NFTContractFactory.json";
-import { publicClient } from "@/utils/viemClient";
 import { useAccount } from "wagmi";
+import { ethers } from "ethers";
 // @ts-ignore
 import { Web3Storage } from "web3.storage";
-import { createWalletClient, http } from "viem";
-import { polygonMumbai } from "viem/chains";
 
 const NFTMembership = () => {
   const [imageUrl, setImageUrl] = useState("");
@@ -21,16 +19,32 @@ const NFTMembership = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [isSupply, setIsSupply] = useState(false);
-  const [supply, setSupply] = useState("");
+  const [supply, setSupply] = useState("0");
   const [price, setPrice] = useState("");
 
   const { address } = useAccount();
 
-  const walletClient = createWalletClient({
-    account: address,
-    chain: polygonMumbai,
-    transport: http(),
-  });
+  const callContract = async (metaDataUrl: string) => {
+    const provider = new ethers.providers.Web3Provider(
+      (window as any).ethereum
+    );
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      NFTContractFactoryAddress,
+      NFTContractFactory,
+      signer
+    );
+    contract
+      .createNFT(metaDataUrl, supply, isSupply, price, address)
+      .then(async (tx: string) => {
+        {
+          if(tx) {
+            console.log("Completed");
+          }
+        }
+      });
+  };
 
   const uploadMetadata = async () => {
     var metadata = {
@@ -47,16 +61,7 @@ const NFTMembership = () => {
       .put([new File([JSON.stringify(metadata)], "metadata.json")])
       .then(async (cid: string) => {
         console.log(cid);
-        const uri = `https://${cid}.ipfs.w3s.link/metadata.json`;
-        const { request } = await publicClient.simulateContract({
-          account: address,
-          address: NFTContractFactoryAddress,
-          abi: NFTContractFactory,
-          functionName: "createNFT",
-          args: [uri, supply ?? 0, isSupply, price, address],
-        });
-        console.log("request", request);
-        await walletClient.writeContract(request);
+        await callContract(`https://${cid}.ipfs.w3s.link/metadata.json`);
       });
   };
 
@@ -167,7 +172,7 @@ const NFTMembership = () => {
           <button
             onClick={async (e) => {
               e.preventDefault();
-              uploadMetadata();
+              await uploadMetadata();
             }}
             className="w-[100px] mx-auto text-[#ffffff] items-center justify-center bg-violet-500 hover:bg-violet-600 focus:ring-1 focus:outline-none focus:ring-[#cfcfcf] font-medium rounded-xl text-sm px-5 py-2.5 text-center shadow-none dark:bg-violet-500 dark:hover:bg-violet-600 dark:text-gray-100"
           >
