@@ -15,7 +15,7 @@ const Upload = ({ id, name, type, accept, onChange }: UploadProps) => {
     <div className="flex flex-col">
       <Button
         startIcon={<FileUploadIcon />}
-        className="max-w-full text-[#8b00ff] dark:text-[#c45cfc] border-1 border-[#8b00ff] dark:border-[#c45cfc] rounded-lg mb-5 md:mb-0"
+        className="max-w-full text-[#8b00ff] dark:text-[#c45cfc] border-1 border-[#8b00ff] dark:border-[#c45cfc] hover:border-[#8b00ff] rounded-lg mb-5 md:mb-0"
         variant="outlined"
       >
         Upload

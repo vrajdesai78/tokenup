@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -7,8 +7,11 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Modal,
+  Link,
 } from "@mui/material";
 import { BsArrowUpRight } from "react-icons/bs";
+import Upload from "./form-elements/upload";
 import { useTheme } from "next-themes";
 
 type nftDataProps = {
@@ -21,6 +24,9 @@ type nftDataProps = {
 export default function NFTDetails(nftData: nftDataProps) {
   const { name, description, image, price } = nftData;
   const { theme, setTheme } = useTheme();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Box>
       <Card
@@ -56,7 +62,7 @@ export default function NFTDetails(nftData: nftDataProps) {
             component="div"
             bgcolor={theme === "light" ? "#232324" : "#937ade"}
             display="inline-block"
-            px={2}
+            px={1.5}
             py={1}
             color="white"
             borderRadius={1}
@@ -89,10 +95,61 @@ export default function NFTDetails(nftData: nftDataProps) {
             color="primary"
             endIcon={<BsArrowUpRight />}
             className="w-full text-gray-700 dark:text-[#bea8ff]"
-            //   onClick={handleViewMore}
+            onClick={handleOpen}
           >
-            View more
+            Airdrop
           </Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute" as "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                bgcolor: theme === "light" ? "background.paper" : "#110a24",
+                border:
+                  theme === "light" ? "2px solid #000" : "2px solid #69579e",
+                borderRadius: "15px",
+                boxShadow: 24,
+                p: 4,
+              }}
+            >
+              <Typography id="modal-modal-title" variant="h4" component="h2">
+                Airdrop 🚀
+              </Typography>
+              <Typography
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+                className="text-gray-600 dark:text-gray-200"
+              >
+                Please upload the recipient list in this{" "}
+                <Link
+                  underline="none"
+                  href=""
+                  className="text-[#a13bf7] dark:text-[#f8c851]"
+                >
+                  format
+                </Link>
+              </Typography>
+              <div className="flex flex-row space-x-3 items-center justify-center mt-2 mx-auto">
+                <Upload
+                  id="image"
+                  name="image"
+                  type="file"
+                  onChange={() => {}}
+                />
+                <Button className="text-white rounded-lg bg-gradient-to-r from-[#f9b92a] to-[#dc9519]">
+                  Send
+                </Button>
+              </div>
+            </Box>
+          </Modal>
         </CardActions>
       </Card>
     </Box>
