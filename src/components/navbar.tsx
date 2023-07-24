@@ -1,6 +1,7 @@
 import { BiSun, BiMoon } from "react-icons/bi";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
+import { Web3Button } from '@web3modal/react'
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
@@ -20,6 +21,7 @@ const Navbar = () => {
     <>
       <nav className="w-full mx-auto py-5 px-2 lg:px-0">
         <div className="max-w-[1080px] container flex flex-wrap justify-end space-x-5 items-center mx-auto">
+          <Web3Button />
           {theme === "light" ? (
             <BiMoon
               size="25"

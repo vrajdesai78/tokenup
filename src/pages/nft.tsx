@@ -6,6 +6,7 @@ import Layout from "@/components/layout";
 import Input from "@/components/form-elements/input";
 import Upload from "@/components/form-elements/upload";
 import MCheckbox from "@/components/form-elements/checkbox";
+// @ts-ignore
 import { Web3Storage } from 'web3.storage';
 
 const NFTMembership = () => {

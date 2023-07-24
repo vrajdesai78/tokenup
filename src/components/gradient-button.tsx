@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 type GradientButtonProps = {
-    title: string;
-    link: string;
+  title: string;
+  link: string;
 };
 
-const GradientButton = ({title, link}: GradientButtonProps) => {
+const GradientButton = ({ title, link }: GradientButtonProps) => {
   return (
     <div>
       <Link
