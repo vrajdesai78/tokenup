@@ -52,14 +52,6 @@ const navSec2 = [
   },
 ];
 
-const navSec3 = [
-  {
-    link: "/profile",
-    icon: <CgProfile size={24} />,
-    name: "Profile",
-  },
-];
-
 const Sidebar = () => {
   return (
     <aside className="fixed min-h-[100vh] w-[45] md:w-[180px] border-r border-gray-400 py-5">
@@ -85,15 +77,6 @@ const Sidebar = () => {
           ))}
           <hr className="w-full my-2 border-gray-400" />
           {navSec2.map((item) => (
-            <NavItem
-              key={item.link}
-              link={item.link}
-              icon={item.icon}
-              name={item.name}
-            />
-          ))}
-          <hr className="w-full my-2 border-gray-400" />
-          {navSec3.map((item) => (
             <NavItem
               key={item.link}
               link={item.link}

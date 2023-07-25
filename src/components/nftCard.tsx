@@ -55,7 +55,7 @@ export default function NFTDetails(nftData: nftDataProps) {
           sx={{
             borderBottom:
               theme === "light" ? "1px solid black" : "1px solid #937ade",
-            maxHeight: "300px",
+            height: "250px",
             objectFit: "fill",
           }}
         />

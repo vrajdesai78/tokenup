@@ -1,4 +1,4 @@
-import React, { HtmlHTMLAttributes, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Head from "next/head";
 import { useState } from "react";
@@ -10,7 +10,7 @@ import { NFTContractFactoryAddress } from "@/utils/constants";
 import NFTContractFactory from "@/utils/ABI/NFTContractFactory.json";
 import { useAccount } from "wagmi";
 import { ethers } from "ethers";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // @ts-ignore
 import { Web3Storage } from "web3.storage";
@@ -23,6 +23,7 @@ const NFTMembership = () => {
   const [isSupply, setIsSupply] = useState(false);
   const [supply, setSupply] = useState("0");
   const [price, setPrice] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { address } = useAccount();
 
@@ -42,6 +43,7 @@ const NFTMembership = () => {
       .then(async (tx: string) => {
         {
           if (tx) {
+            setLoading(false);
             toast.success("NFT Created Successfully");
           }
         }
@@ -49,6 +51,7 @@ const NFTMembership = () => {
   };
 
   const uploadMetadata = async () => {
+    setLoading(true);
     var metadata = {
       name: name,
       description: description,
@@ -176,6 +179,7 @@ const NFTMembership = () => {
               e.preventDefault();
               await uploadMetadata();
             }}
+            disabled={loading}
             className="w-[100px] mx-auto text-[#ffffff] items-center justify-center bg-violet-500 hover:bg-violet-600 focus:ring-1 focus:outline-none focus:ring-[#cfcfcf] font-medium rounded-xl text-sm px-5 py-2.5 text-center shadow-none dark:bg-violet-500 dark:hover:bg-violet-600 dark:text-gray-100"
           >
             Create
