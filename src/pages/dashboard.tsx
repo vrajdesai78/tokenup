@@ -94,7 +94,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div>
-        <Table headers={headers} data={productData} />
+        {/* <Table headers={headers} data={productData} /> */}
       </div>
     </Layout>
   );
