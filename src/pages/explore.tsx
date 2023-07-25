@@ -47,6 +47,7 @@ export default function Products() {
 
   useEffect(() => {
     if (data) {
+      console.log("data", data)
       fetchData()
     }
   }, [data]);

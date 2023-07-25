@@ -58,17 +58,13 @@ const AirdropModal = ({ open, onClose }: AirdropModalProps) => {
             onChange={(e: any) => {
               const file = e.target.files[0];
               console.log(file);
-              if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                  try {
-                    const addressList = JSON.parse(reader.result as string);
-                    console.log("List", addressList);
-                  } catch {
-                    alert("Invalid JSON file");
-                  }
-                };
-              }
+              const reader = new FileReader();
+              reader.onload = (e: any) => {
+                console.log("Inside");
+                const addressList = e.target.result;
+                console.log("List", addressList);
+                console.log("List", JSON.parse(addressList as string));
+              };
             }}
           />
           <Button className="text-white rounded-lg bg-gradient-to-r from-[#f9b92a] to-[#dc9519]">
