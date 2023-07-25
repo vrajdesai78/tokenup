@@ -76,7 +76,7 @@ const NFTMembership = () => {
       <div className="flex flex-col space-y-8 justify-center items-center max-w-[800px] mx-auto pb-32 pl-[60px] lg:pl-0">
         <div className="flex items-center w-[90%] md:w-full bg-gradient-to-r from-[#c45cfc] to-[#7b4fc9] rounded-[30px] overflow-hidden shadow-lg">
           <div className="hidden md:flex mx-auto justify-center ml-5">
-            <Image src="/nft.png" width="150" height="150" alt="Icon" />
+            <Image src="/NFT.png" width="150" height="150" alt="Icon" />
           </div>
           <div className="px-10 py-8 text-white text-right">
             <div className="font-bold text-xl mb-2">NFT Memberships</div>
