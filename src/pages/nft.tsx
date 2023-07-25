@@ -10,6 +10,8 @@ import { NFTContractFactoryAddress } from "@/utils/constants";
 import NFTContractFactory from "@/utils/ABI/NFTContractFactory.json";
 import { useAccount } from "wagmi";
 import { ethers } from "ethers";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // @ts-ignore
 import { Web3Storage } from "web3.storage";
 
@@ -40,7 +42,7 @@ const NFTMembership = () => {
       .then(async (tx: string) => {
         {
           if (tx) {
-            console.log("Completed");
+            toast.success("NFT Created Successfully");
           }
         }
       });
