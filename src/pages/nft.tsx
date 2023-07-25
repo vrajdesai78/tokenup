@@ -99,6 +99,7 @@ const NFTMembership = () => {
               id="image"
               name="image"
               type="file"
+              accept="image/*"
               onChange={(e: any) => {
                 const image = URL.createObjectURL(e.target.files[0]);
                 setImage(image);

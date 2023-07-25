@@ -35,7 +35,7 @@ const Upload = ({ id, name, type, accept, onChange }: UploadProps) => {
 
 Upload.defaultProps = {
   type: "file",
-  accept: "image/*",
+  accept: "application/JSON",
   onchange: () => {},
 };
 
