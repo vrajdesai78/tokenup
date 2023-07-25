@@ -14,20 +14,23 @@ import { IoMdSend } from "react-icons/io";
 import Upload from "./form-elements/upload";
 import { useTheme } from "next-themes";
 import AirdropModal from "./AirdropModal";
+import { useRouter } from "next/router";
 
 type nftDataProps = {
   name: string;
   description: string;
   image: string;
   price: string;
+  address: string;
 };
 
 export default function NFTDetails(nftData: nftDataProps) {
-  const { name, description, image, price } = nftData;
+  const { name, description, image, price, address } = nftData;
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { push } = useRouter();
 
   return (
     <Box>
@@ -97,9 +100,9 @@ export default function NFTDetails(nftData: nftDataProps) {
             color="primary"
             endIcon={<IoMdSend />}
             className="w-full text-gray-700 dark:text-[#bea8ff]"
-            onClick={handleOpen}
+            onClick={() => {push(`/mint/${address}`)}}
           >
-            Airdrop
+            Claim NFT
           </Button>
           <AirdropModal open={open} onClose={handleClose} />
         </CardActions>

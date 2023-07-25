@@ -8,10 +8,8 @@ import NFTContractFactory from "@/utils/ABI/NFTContractFactory.json";
 import { useAccount, useContractRead } from "wagmi";
 import NFTDetails from "@/components/nftCard";
 
-
 export default function Products() {
   const [parsedData, setParsedData] = useState([]);
-
 
   const [productData, setProductData] = useState([{}]);
   const { address } = useAccount();
@@ -38,7 +36,8 @@ export default function Products() {
         name: pd.name,
         description: pd.description,
         image: pd.image,
-        price: parseFloat(nft.nftPrice)
+        price: parseFloat(nft.nftPrice),
+        nftAddress: nft.nftAddress,
       });
     }
     setProductData(nfts);
@@ -69,7 +68,7 @@ export default function Products() {
           <NFTDetails {...products} key={index} />
         ))} */}
          {productData.map((products, index) => (
-          <NFTDetails name={""} description={""} image={""} price={""} {...products} key={index} />
+          <NFTDetails name={""} description={""} image={""} price={""} address={""} {...products} key={index} />
         ))}
       </Grid>
     </Layout>
