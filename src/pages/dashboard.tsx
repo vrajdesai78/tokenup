@@ -84,7 +84,7 @@ const Dashboard = () => {
             color="bg-gradient-to-r from-[#c45cfc] to-[#7b4fc9]"
           />
           <Card
-            heading="SHIP ERC721A TO ATTENDEES"
+            heading="SHIP ERC1155 TO ATTENDEES"
             link="/airdrop"
             title="AIRDROP NFTs"
             img="/airdrop.png"

@@ -68,7 +68,7 @@ export default function Products() {
           <NFTDetails {...products} key={index} />
         ))} */}
          {productData.map((products, index) => (
-          <NFTDetails name={""} description={""} image={""} price={""} address={""} {...products} key={index} />
+          <NFTDetails name={""} description={""} image={""} price={""} nftAddress={""} {...products} key={index} />
         ))}
       </Grid>
     </Layout>
