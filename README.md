@@ -1,6 +1,9 @@
 # TokenUp
 TokenUp streamlines the process of rewarding participants for attending community event, DAOs call and protocol sync up. The event managers can create NFT collection and airdrop it in just few seconds.
 
+## Demo Video 
+
+Youtube [Link](https://youtu.be/nq5-4dHfoGk)
 
 ## Prerequisites
 
